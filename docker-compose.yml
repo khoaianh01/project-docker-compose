@@ -1,0 +1,32 @@
+version: "2.2.3"
+
+services:
+  app:
+    image: node:12.18.1
+    command : sh -c "npm i && npm start"
+    working_dir: /app
+    volumes:
+       - ./:/app
+   #  environment:
+   #     - MONGO_URL : 'mongodb://db/test'
+    ports:
+       - 3001:3000
+    links:
+       - db
+    depends_on:
+       - db
+  
+  db:
+    image: mongo
+    volumes:
+       - todo-mongo-data:/var/lib/mongo
+    ports:
+       - 27017:27017
+   #  environment:
+   #     - DB_HOST= db
+   #     - DB_NAME = test
+  
+volumes:
+   todo-mongo-data:
+
+      
